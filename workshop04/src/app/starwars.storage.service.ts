@@ -14,8 +14,14 @@ export class StarWarsDatabaseService {
         })
     }
 
+    getAll(): Promise<People[]> {
+        return (
+            this.db['people'].orderBy('name')
+                .toArray()
+        );
+    }
+
     find(id: number): Promise<People> {
-        console.log('id == ', id);
         const p = new Promise<People>((resolve, reject) => {
             this.db['people'].where('id').equals(id)
                 .toArray()
@@ -34,12 +40,5 @@ export class StarWarsDatabaseService {
         return (
             this.db['people'].put(data)
         );
-    }
-
-    getAll(): Promise<People>[]{
-        return(
-            this.db['people'].orderBy('name')
-            .toArray()
-        )
     }
 }
